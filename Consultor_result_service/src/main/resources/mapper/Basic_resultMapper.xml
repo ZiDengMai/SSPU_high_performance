@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sspu_consultor.consultor_result_service.mapper.Basic_resultMapper">
+
+    <update id="res_basicByUser_idQ_id">
+        update basic_result set res_basic=#{res_basic} where user_id=#{user_id} and q_id=#{q_id}
+    </update>
+
+    <update id="updateBasic_relationByUser_idQ_id">
+        update basic_result set basic_relation=#{basic_relation} where user_id=#{user_id} and q_id=#{q_id}
+    </update>
+
+    <select id="find_res_basicByUser_idQ_id" resultType="entity.basic_result.Basic_result">
+        select * from basic_result where user_id=#{user_id} and q_id=#{q_id}
+    </select>
+
+    <select id="find_res_basicByUser_id" resultType="entity.basic_result.Basic_result">
+        select * from basic_result where user_id=#{user_id}
+    </select>
+
+    <select id="find_res_basicByQ_id" resultType="entity.basic_result.Basic_result">
+        select * from basic_result where q_id=#{q_id}
+    </select>
+
+    <insert id="insertRes_basicByUser_idQ_id">
+        insert into basic_result(user_id,q_id,res_basic) values(#{user_id},#{q_id},#{res_basic})
+    </insert>
+
+    <insert id="insertBasic_relationByUser_idQ_id">
+        insert into basic_result(user_id,q_id,basic_relation) values(#{user_id},#{q_id},#{basic_relation})
+    </insert>
+</mapper>

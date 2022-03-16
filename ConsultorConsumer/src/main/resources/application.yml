@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: Consumers
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://point1:8001/eureka/,http://point2:8002/eureka/
+    register-with-eureka: true
+    fetch-registry: true

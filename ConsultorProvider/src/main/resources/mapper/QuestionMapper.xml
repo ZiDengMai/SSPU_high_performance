@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sspu_consultor.ConsultorProvider.dao.QuestionMapper">
+
+     <insert id="insertNeoQuestion">
+          insert into question(user_id,q_id,q_start_time,q_end_time,route_start,route_ends) values(#{user_id},#{q_id},#{q_start_time},#{q_end_time},#{route_start},#{route_ends})
+     </insert>
+
+     <update id="updateQuestion">
+          update question set q_content=#{q_content},q_name=#{q_name},q_script=#{q_script} where user_id=#{user_id} and q_id=#{q_id}
+     </update>
+
+     <select id="selectQuestionByQ_id" resultType="entity.question.Question">
+          select * from question where q_id=#{q_id}
+     </select>
+
+     <select id="selectQuestionByUser_id" resultType="entity.question.Question">
+          select * from question where user_id=#{user_id}
+     </select>
+
+     <update id="updateCoursesByQ_id">
+          update question set courses=#{courses} where q_id=#{q_id}
+     </update>
+
+     <update id="updateC_relationsByQ_id">
+          update question set c_relations=#{c_relations} where q_id=#{q_id}
+     </update>
+
+     <select id="selectCoursesByQ_id" resultType="java.lang.String">
+          select courses from question where q_id=#{q_id}
+     </select>
+
+     <select id="selectC_relationsByQ_id" resultType="java.lang.String">
+          select c_relations from question where q_id=#{q_id}
+     </select>
+
+     <delete id="deletByQ_id">
+          delete from question where q_id=#{q_id}
+     </delete>
+
+     <select id="selectAll" resultType="entity.question.Question">
+          select * from question limit #{start},#{end}
+     </select>
+
+     <update id="updateQ_situationByQ_id">
+          update question set q_situation=#{q_situation} where q_id=#{q_id}
+     </update>
+
+     <update id="updateStartsAndEndsByQ_id">
+          update question set route_start=#{route_start},route_ends=#{route_ends} where q_id=#{q_id}
+     </update>
+</mapper>

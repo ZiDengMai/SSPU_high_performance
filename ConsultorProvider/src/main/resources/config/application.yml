@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: Providers
+  datasource:
+    url: jdbc:mysql://localhost:3306/sspu_consultor?characterEncoding=UTF-8&AutoReconnect=true
+    username: root
+    password: 0096unicorn
+    driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 500
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 0
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: sspu
+
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml
+server:
+  port: 7000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://point1:8001/eureka/,http://point2:8002/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+init:
+  machineId: 0
+  dataCenterId: 0

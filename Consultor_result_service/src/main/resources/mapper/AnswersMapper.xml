@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sspu_consultor.consultor_result_service.mapper.AnswersMapper">
+    <insert id="insertNeoAnswer">
+        insert into answers values(#{user_id},#{q_id},#{ans_content});
+    </insert>
+    <update id="updateAnswer">
+        update answers set ans_content=#{ans_content} where user_id=#{user_id} and q_id=#{q_id}
+    </update>
+    <select id="findAllAnswersByQ_id" resultType="entity.answers.Answers">
+        select * from answers where q_id=#{q_id}
+    </select>
+    <select id="findAllAnswersByUser_id" resultType="entity.answers.Answers">
+        select * from answers where user_id=#{user_id}
+    </select>
+</mapper>

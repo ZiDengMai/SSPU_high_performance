@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sspu_consultor.consultor_result_service.mapper.QuestionMapper">
+
+     <insert id="insertNeoQuestion">
+          insert into question values(#{user_id},#{q_id},'')
+     </insert>
+
+     <update id="updateQuestion">
+          update question set q_content=#{q_content} where user_id=#{user_id} and q_id=#{q_id}
+     </update>
+
+     <select id="selectQuestionByQ_id" resultType="entity.question.Question">
+          select * from question where q_id=#{q_id}
+     </select>
+
+     <select id="selectQuestionByUser_id" resultType="entity.question.Question">
+          select * from question where user_id=#{user_id}
+     </select>
+
+</mapper>
