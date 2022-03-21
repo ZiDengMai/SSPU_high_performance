@@ -1,10 +1,10 @@
-package com.sspu_consultor.consultor_result_service.service;
+package com.sspu_consultor.consultor_result.service;
 
 
 import com.alibaba.fastjson.JSON;
-import com.sspu_consultor.consultor_result_service.mapper.AnswersMapper;
-import com.sspu_consultor.consultor_result_service.mapper.Basic_resultMapper;
-import com.sspu_consultor.consultor_result_service.mapper.QuestionMapper;
+import com.sspu_consultor.consultor_result.mapper.AnswersMapper;
+import com.sspu_consultor.consultor_result.mapper.Basic_resultMapper;
+import com.sspu_consultor.consultor_result.mapper.QuestionMapper;
 import entity.QuestionResult;
 import entity.answers.SingleAnswer;
 import entity.course.Course;

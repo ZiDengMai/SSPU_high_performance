@@ -1,4 +1,4 @@
-package com.sspu_consultor.consultor_result_service;
+package com.sspu_consultor.consultor_result;
 
 
 import org.springframework.boot.SpringApplication;

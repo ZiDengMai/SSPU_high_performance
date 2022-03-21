@@ -1,4 +1,4 @@
-package com.sspu_consultor.consultor_result_service.controller;
+package com.sspu_consultor.consultor_result.controller;
 
 import entity.CommonResult;
 import entity.answers.Answers;

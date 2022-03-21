@@ -1,4 +1,4 @@
-package com.sspu_consultor.consultor_result_service.mapper;
+package com.sspu_consultor.consultor_result.mapper;
 
 import entity.answers.Answers;
 import org.apache.ibatis.annotations.Mapper;

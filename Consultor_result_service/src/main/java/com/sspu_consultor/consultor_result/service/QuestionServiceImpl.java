@@ -1,8 +1,8 @@
-package com.sspu_consultor.consultor_result_service.service;
+package com.sspu_consultor.consultor_result.service;
 
 import cn.hutool.core.util.IdUtil;
 
-import com.sspu_consultor.consultor_result_service.mapper.QuestionMapper;
+import com.sspu_consultor.consultor_result.mapper.QuestionMapper;
 import entity.question.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
