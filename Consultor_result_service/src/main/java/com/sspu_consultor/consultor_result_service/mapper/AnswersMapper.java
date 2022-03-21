@@ -17,4 +17,6 @@ public interface AnswersMapper {
     public List<Answers> findAllAnswersByUser_id(Long user_id);
 
     public Answers findAllAnswersByQ_idUser_id(Long user_id,Long q_id);
+
+
 }

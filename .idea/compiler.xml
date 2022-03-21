@@ -9,6 +9,7 @@
         <module name="eureka_second" />
         <module name="ConsultorProvider" />
         <module name="ConsultorConsumer" />
+        <module name="brief_provider" />
         <module name="Consultor_result_service" />
         <module name="ConsultorCommon" />
         <module name="ConsultorHystrixDashBoard" />
@@ -24,6 +25,7 @@
       <module name="ConsultorHystrixDashBoard" options="-parameters" />
       <module name="ConsultorProvider" options="-parameters" />
       <module name="Consultor_result_service" options="-parameters" />
+      <module name="brief_provider" options="-parameters" />
       <module name="com.sspu_consultor" options="-parameters" />
       <module name="eureka_first" options="-parameters" />
       <module name="eureka_second" options="-parameters" />

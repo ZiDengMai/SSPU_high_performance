@@ -15,6 +15,7 @@ public class CheckByDFA {
     @Bean
     public void init() throws IOException {
         FileInputStream fileInputStream = new FileInputStream("/Users/maikabi/Downloads/sensitive_words-imain/baidu_filter.txt");
+        //FileInputStream fileInputStream = new FileInputStream("/usr/bin/sspu/baidu_filter.txt");
         int  len=0;
         StringBuilder sBuffer=new StringBuilder();
         Set<String> container = new HashSet<String>();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sspu_consultor.ConsultorProvider.dao.UserMapper">
+<mapper namespace="com.sspu_consultor.ConsultorProvider.com.sspu_consultor.brief_provider.dao.UserMapper">
 
      <insert id="insertIntoNeoUser">
          insert into user values(#{user_id},#{user_name},#{user_password})

@@ -4,6 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
+    <!--打包时记得先install根目录-->
+
     <groupId>org.example</groupId>
     <artifactId>com.sspu_consultor</artifactId>
     <packaging>pom</packaging>
@@ -23,6 +26,7 @@
         <module>ConsultorHystrixDashBoard</module>
         <module>gateway</module>
         <module>Consultor_result_service</module>
+        <module>brief_provider</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

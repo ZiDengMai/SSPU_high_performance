@@ -25,7 +25,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 
-@Component
+//@Component
 public class CanalClient {
 
     private Logger logger = LoggerFactory.getLogger(CanalClient.class);
@@ -44,7 +44,7 @@ public class CanalClient {
     public void run() {
 
         //ip需要修改成Linux的ip，端口号固定为11111
-        CanalConnector connector = CanalConnectors.newSingleConnector(new InetSocketAddress("192.168.1.100",
+        CanalConnector connector = CanalConnectors.newSingleConnector(new InetSocketAddress("106.14.121.164",
                 11111), "example", "", "");
         int batchSize = 1000;
         try {
