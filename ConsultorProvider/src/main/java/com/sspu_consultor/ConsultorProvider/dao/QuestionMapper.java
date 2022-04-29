@@ -21,4 +21,5 @@ public interface QuestionMapper {
     public List<Question> selectAll(int start,int end);
     public int updateQ_situationByQ_id(Long q_id,int q_situation);
     public int updateStartsAndEndsByQ_id(Long q_id, int route_start, String route_ends);
+    public List<Question> selectQuestionByQ_name(String q_name);
 }

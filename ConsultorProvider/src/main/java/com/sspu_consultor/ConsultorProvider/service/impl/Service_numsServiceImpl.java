@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import service.Service_numsService;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -58,15 +59,23 @@ public class Service_numsServiceImpl implements Service_numsService {
         //单位毫秒,1000毫秒等于1秒
         if(aquire_lock_for_update(lockName,uuid,10000,30000)){
             try{
+                int nums=0;
                 Service_nums service_nums=service_numsMapper.selectService_numsByServcie_id(service_id).get(0);
-                int nums=service_nums.getNums();
-                if(nums>0){
+                nums=service_nums.getNums();
+                List<Date> times=service_historyMapper.selectService_historByUser_id(user_id);
+                Date now=new Date();
+                //昨天现在的时间
+                Date yesterday_now=new Date(now.getTime() - 1 * 24 * 60 * 60 * 1000);
+                SimpleDateFormat dt=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                /*System.err.println(times.size());
+                System.err.println(dt.format(yesterday_now)+" "+dt.format(times.get(0)));*/
+                if(nums>0 && (times.size()>0 && yesterday_now.after(times.get(0)))){
                     Long his_id=IdUtil.createSnowflake(machineId,dataCenterId).nextId();
                     ans=service_numsMapper.updateService_numsByService_id(service_id,nums-1);
                     int type=service_id.intValue();
                     service_historyMapper.insertService_historyNeoHistory(his_id,user_id,type,new Date());
                     String messageId = String.valueOf(UUID.randomUUID());
-                    String messageData = "for" + service_nums.getScript();
+                    String messageData = "for 服务类型：" + service_id;
                     String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                     Map<String,Object> map=new HashMap<>();
                     map.put("messageId",messageId);
@@ -77,7 +86,7 @@ public class Service_numsServiceImpl implements Service_numsService {
                     map.put("user_id",user_id);
                     map.put("start",start);
                     map.put("ends", JSON.toJSONString(ends));
-                    rabbitTemplate.convertAndSend("SlowDirectExchange", "SlowServiceDirectRouting", map);
+                    rabbitTemplate.convertAndSend("ServiceDirectExchange", "ServiceDirectRouting", map);
                 }
             }catch (Exception e){
                 e.printStackTrace();

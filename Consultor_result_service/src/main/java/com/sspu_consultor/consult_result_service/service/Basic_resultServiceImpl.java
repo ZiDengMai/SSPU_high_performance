@@ -1,12 +1,13 @@
-package com.sspu_consultor.consultor_result.service;
+package com.sspu_consultor.consult_result_service.service;
 
 
 import com.alibaba.fastjson.JSON;
-import com.sspu_consultor.consultor_result.mapper.AnswersMapper;
-import com.sspu_consultor.consultor_result.mapper.Basic_resultMapper;
-import com.sspu_consultor.consultor_result.mapper.QuestionMapper;
+import com.sspu_consultor.consult_result_service.mapper.AnswersMapper;
+import com.sspu_consultor.consult_result_service.mapper.Basic_resultMapper;
+import com.sspu_consultor.consult_result_service.mapper.QuestionMapper;
 import entity.QuestionResult;
 import entity.answers.SingleAnswer;
+import entity.course.C_Relation;
 import entity.course.Course;
 import entity.question.SingleQuestion;
 import entity.answers.Answers;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import service.Basic_resultService;
 
+import javax.management.relation.Relation;
 import java.util.*;
 
 @Service
@@ -146,7 +148,7 @@ public class Basic_resultServiceImpl implements Basic_resultService {
                 }
             }
         }
-        List<QuestionResult> res_for_basic_result=new LinkedList<QuestionResult>();
+        /*List<QuestionResult> res_for_basic_result=new LinkedList<QuestionResult>();
 
         //外循环表示问卷的问题数
         //统计每个选项的人数，并序列化
@@ -160,42 +162,62 @@ public class Basic_resultServiceImpl implements Basic_resultService {
                 questionResult.getAnswers().add(String.valueOf(arr[i][j]));
             }
             res_for_basic_result.add(questionResult);
-        }
-        /*for(int i=0;i<res_for_basic_result.size();i++){
-            QuestionResult q=res_for_basic_result.get(i);
-            System.out.println(q.getTitle()+" "+q.getType());
-            for(int j=0;j<q.getSelections().size();j++){
-                System.out.print(q.getSelections().get(j)+" ");
+        }*/
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                System.out.print(arr[i][j]+" ");
             }
             System.out.println();
-        }*/
+        }
 
 
         //获取关系图
         String s_map=queList.get(0).getC_relations();
         List<int[]> map=JSON.parseArray(s_map,int[].class);
-        /*for(int i=0;i<map.size();i++){
-            int array[]=map.get(i);
-           for(int j=0;j<array.length;j++){
-               System.out.print(array[j]+" ");
-           }
-           System.out.println();
-        }*/
         //获取课程列表
         String s_course=queList.get(0).getCourses();
         List<Course> courses=JSON.parseArray(s_course,Course.class);
-        //统计课程列表中的权值
+        //1.先统计课程列表中的权值到临时图中
         for(int i=0;i<courses.size();i++){
             for(int j=0;j<map.size();j++){
                 int array[]=map.get(j);
                 if(array[i+1]!=0){
-                    array[i+1]=courses.get(i).getWeight();
-                    array[i+1]*=10;
+                    array[i+1]=1000000-(courses.get(i).getWeight()*10)>=0 ? 1000000-(courses.get(i).getWeight()*10) : 0 ;
+                    //array[i+1]=1000000;
                 }
             }
         }
 
-        //统计所有问卷-》统计每张问卷每题的作答情况-》统计相关的课程
+        //2.统计每个选项的相关课程
+        for(int i=0;i<ques_num;i++){
+            //单个问卷问题
+            SingleQuestion sq=que_single_questions.get(i);
+            //单个选项相关课程列表
+            List<C_Relation[]> c_r=sq.getRelations();
+            int selection_num=c_r.size();
+            for(int j=0;j<selection_num;j++){
+                //课程列表中的权重轮询
+                C_Relation[] single_select_course=c_r.get(j);
+                for(int k=0;k<single_select_course.length;k++){
+                    //权重
+                    int w=single_select_course[k].getWeight();
+                    //课程号
+                    int id=single_select_course[k].getC_id();
+                    //System.err.println(i+" "+id+" "+w+" "+single_select_course[k].getC_name());
+                    //统计到图中的每一列
+                    for(int l=1;l<map.size();l++){
+                        int array[]=map.get(l);
+                        if(array[id]!=0){
+
+                            array[id] = array[id]-(w*arr[i][j])>=0 ? array[id]-(w*arr[i][j]) : 0;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        //3.统计所有问卷-》统计每张问卷每题的作答情况-》统计用户选择每次答题的相关课程
 
         for(int user_index=0;user_index<ansList.size();user_index++) {
             List<SingleAnswer> ans_singleAnswers = JSON.parseArray(ansList.get(user_index).getAns_content(),SingleAnswer.class);
@@ -207,7 +229,7 @@ public class Basic_resultServiceImpl implements Basic_resultService {
                         int array[]=map.get(j);
                         int arr_index=course_list.get(i).getC_id();
                         if(array[arr_index]!=0){
-                            array[arr_index]+=course_list.get(i).getWeight();
+                            array[arr_index]-=course_list.get(i).getWeight();
                         }
                     }
                 }
@@ -243,7 +265,7 @@ public class Basic_resultServiceImpl implements Basic_resultService {
         }
         for(int i=1;i<=n;i++){
             hasbeen[from]=true;
-            int min=100000;
+            int min=10000000;
             int index=0;
             for(int to=1;to<n;to++){
                 if(map.get(from)[to]>0 && !hasbeen[to]){

@@ -11,6 +11,7 @@ eureka:
 
   client:
     serviceUrl:
-      defaultZone: http://point2:8002/eureka/
-    register-with-eureka: true
-    fetch-registry: true
+      #defaultZone: http://point2:8002/eureka/
+      defaultZone: http://point1:8001/eureka/
+    register-with-eureka: false
+    fetch-registry: false

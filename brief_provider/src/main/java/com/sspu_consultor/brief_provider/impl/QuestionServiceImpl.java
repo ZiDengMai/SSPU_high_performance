@@ -109,4 +109,19 @@ public class QuestionServiceImpl implements QuestionService {
         String ends=JSON.toJSONString(route_ends);
         return questionMapper.updateStartsAndEndsByQ_id(q_id,route_start,ends);
     }
+
+    @Override
+    public List<Question> selectQuestionsByQ_idOrQ_Name(String key) {
+        return null;
+    }
+
+    @Override
+    public List<Question> selectQuestionByQ_idWithCache(Long q_id,Long user_id) {
+        return null;
+    }
+
+    @Override
+    public List<Question> getMyQuestionCache(Long user_id) {
+        return null;
+    }
 }

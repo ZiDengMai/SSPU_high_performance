@@ -71,6 +71,7 @@ public class QustionController {
     @ResponseBody
     public CommonResult<String> selectQuestionByUser_id(Long user_id){
         List<Question> ans=questionService.selectQuestionByUser_id(user_id);
+        System.out.println("!!!!!!!!!");
         return new CommonResult<String>(200, JSON.toJSONString(ans));
     }
 

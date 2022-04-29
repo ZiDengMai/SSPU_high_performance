@@ -103,6 +103,30 @@ public class QuestionController {
         return restTemplate.postForObject("http://Providers/question/updateStartsAndEndsByQ_id",starsAndEnds,CommonResult.class);
     }
 
+    @GetMapping("/selectC_relationsByQ_id")
+    @ResponseBody
+    public CommonResult<String> selectC_relationsByQ_id(Long q_id){
+        return restTemplate.getForObject("http://Providers/question/selectC_relationsByQ_id?q_id="+q_id,CommonResult.class);
+    }
+
+    @GetMapping("/selectQuestionsByQ_idOrQ_Name")
+    @ResponseBody
+    public CommonResult<List<Question>> selectQuestionsByQ_idOrQ_Name(String key){
+        CommonResult<String> ans= restTemplate.getForObject("http://Providers/question/selectQuestionsByQ_idOrQ_Name?key="+key,CommonResult.class);
+        return new CommonResult<List<Question>>(200,JSON.parseArray(ans.getData(),Question.class));
+    }
+
+    @GetMapping("/selectQuestionByQ_idWithCache")
+    @ResponseBody
+    public CommonResult<List<Question>> selectQuestionByQ_idWithCache(Long q_id,Long user_id) {
+        return restTemplate.getForObject("http://Providers/question/selectQuestionByQ_idWithCache?q_id="+q_id+"&user_id="+user_id,CommonResult.class);
+    }
+
+    @GetMapping("/getMyQuestionCache")
+    public CommonResult<List<Question>> getMyQuestionCache(Long user_id){
+        CommonResult<String> ans=restTemplate.getForObject("http://Providers/question/getMyQuestionCache?user_id="+user_id,CommonResult.class);
+        return new CommonResult<List<Question>>(200,JSON.parseArray(ans.getData(),Question.class));
+    }
     //insertNeoQuestion的降级方案
     public CommonResult<Long> timeout(Long user_id){
         return new CommonResult(500, (long) 0);

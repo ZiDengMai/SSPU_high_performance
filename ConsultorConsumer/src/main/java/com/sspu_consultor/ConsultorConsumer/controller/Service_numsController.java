@@ -39,7 +39,7 @@ public class Service_numsController {
 
     @PostMapping("/updateService_numsByService_id")
     @ResponseBody
-    public CommonResult<Integer> updateService_numsByService_id(@RequestBody Service_nums_pack service_nums_pack){
+    public CommonResult<String> updateService_numsByService_id(@RequestBody Service_nums_pack service_nums_pack){
         return restTemplate.postForObject("http://Providers/service_nums/updateService_numsByService_id",service_nums_pack,CommonResult.class);
     }
 }

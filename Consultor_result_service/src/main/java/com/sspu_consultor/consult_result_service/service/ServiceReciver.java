@@ -1,4 +1,4 @@
-package com.sspu_consultor.consultor_result.service;
+package com.sspu_consultor.consult_result_service.service;
 
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

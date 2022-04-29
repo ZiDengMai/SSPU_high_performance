@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sspu_consultor.ConsultorProvider.com.sspu_consultor.brief_provider.dao.QuestionMapper">
+<mapper namespace="com.sspu_consultor.ConsultorProvider.dao.QuestionMapper">
 
      <insert id="insertNeoQuestion">
           insert into question(user_id,q_id,q_start_time,q_end_time,route_start,route_ends) values(#{user_id},#{q_id},#{q_start_time},#{q_end_time},#{route_start},#{route_ends})
@@ -49,4 +49,8 @@
      <update id="updateStartsAndEndsByQ_id">
           update question set route_start=#{route_start},route_ends=#{route_ends} where q_id=#{q_id}
      </update>
+
+     <select id="selectQuestionByQ_name" resultType="entity.question.Question">
+          select * from question where q_name like '%${q_name}%'
+     </select>
 </mapper>

@@ -1,8 +1,8 @@
-package com.sspu_consultor.consultor_result.service;
+package com.sspu_consultor.consult_result_service.service;
 
 import cn.hutool.core.util.IdUtil;
 
-import com.sspu_consultor.consultor_result.mapper.QuestionMapper;
+import com.sspu_consultor.consult_result_service.mapper.QuestionMapper;
 import entity.question.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -77,5 +77,20 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public int updateStartsAndEndsByQ_id(Long q_id, int route_start, List<Integer> route_ends) {
         return 0;
+    }
+
+    @Override
+    public List<Question> selectQuestionsByQ_idOrQ_Name(String key) {
+        return null;
+    }
+
+    @Override
+    public List<Question> selectQuestionByQ_idWithCache(Long q_id,Long user_id) {
+        return null;
+    }
+
+    @Override
+    public List<Question> getMyQuestionCache(Long user_id) {
+        return null;
     }
 }

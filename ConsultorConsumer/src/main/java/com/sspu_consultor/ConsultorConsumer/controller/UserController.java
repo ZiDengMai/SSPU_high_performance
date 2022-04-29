@@ -4,15 +4,11 @@ import entity.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
 @RequestMapping("/user")
-//@CrossOrigin(origins = "*", maxAge = 3600)
 public class UserController {
 
     @Autowired
@@ -29,4 +25,17 @@ public class UserController {
     public CommonResult selectUserByNameAndPassword(String user_name, String user_password){
         return restTemplate.getForObject("http://Providers/user/selectUserByNameAndPassword?user_name="+user_name+"&"+"user_password="+user_password,CommonResult.class);
     }
+
+    @GetMapping("/updateUser_expiredAndUser_testByUser_name")
+    @ResponseBody
+    public CommonResult<Integer> updateUser_expiredAndUser_testByUser_name(String user_name){
+        return restTemplate.getForObject("http://Providers/user/updateUser_expiredAndUser_testByUser_name?user_name="+user_name,CommonResult.class);
+    }
+
+    @GetMapping("/updateUser_passwordByUser_name")
+    @ResponseBody
+    public CommonResult<String> updateUser_passwordByUser_name(String user_name, String user_password,String user_test){
+        return restTemplate.getForObject("http://Providers/user/updateUser_passwordByUser_name?user_name="+user_name+"&user_password="+user_password+"&user_test="+user_test,CommonResult.class);
+    }
+
 }

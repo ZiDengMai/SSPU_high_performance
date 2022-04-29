@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sspu_consultor.ConsultorProvider.com.sspu_consultor.brief_provider.dao.Basic_resultMapper">
+<mapper namespace="com.sspu_consultor.ConsultorProvider.dao.Basic_resultMapper">
 
     <update id="res_basicByUser_idQ_id">
         update basic_result set res_basic=#{res_basic} where user_id=#{user_id} and q_id=#{q_id}

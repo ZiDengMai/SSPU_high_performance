@@ -17,4 +17,7 @@ public interface QuestionService {
     public String deletByQ_id(Long q_id);
     public int updateQ_situationByQ_id(Long q_id);
     public int updateStartsAndEndsByQ_id(Long q_id, int route_start, List<Integer> route_ends);
+    public List<Question> selectQuestionsByQ_idOrQ_Name(String key);
+    public List<Question> selectQuestionByQ_idWithCache(Long q_id,Long user_id);
+    public List<Question> getMyQuestionCache(Long user_id);
 }

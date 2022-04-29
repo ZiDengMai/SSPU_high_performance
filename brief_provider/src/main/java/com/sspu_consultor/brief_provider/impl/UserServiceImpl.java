@@ -34,4 +34,20 @@ public class UserServiceImpl implements UserService {
     public User selectUserByNameAndPassword(String user_name, String user_password) {
         return userMapper.selectUserByNameAndPassword(user_name,user_password);
     }
+
+    @Override
+    public int updateUser_expiredAndUser_testByUser_name(String user_name) {
+        return 0;
+    }
+
+    @Override
+    public int updateUser_passwordByUser_name(String user_name, String user_password,String user_test) {
+        return 0;
+    }
+
+    @Override
+    public String selectUser_testByUser_name(String user_name) {
+        return null;
+    }
+
 }

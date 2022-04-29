@@ -7,6 +7,12 @@ spring:
     username: root
     password: 0096unicorn
     driver-class-name: com.mysql.jdbc.Driver
+
+  mail:
+    host:  smtp.163.com
+    username: kuxigundam@163.com
+    password: HSXZTUFYDAHKZTIK
+
   redis:
     #host: 106.14.121.164
     host: 127.0.0.1
@@ -36,7 +42,8 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://point1:8001/eureka/,http://point2:8002/eureka/
+      #defaultZone: http://point1:8001/eureka/,http://point2:8002/eureka/
+      defaultZone: http://point1:8001/eureka/
     register-with-eureka: true
     fetch-registry: true
 

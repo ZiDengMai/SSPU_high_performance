@@ -11,10 +11,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import service.QuestionService;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
@@ -58,11 +58,11 @@ public class QuestionServiceImpl implements QuestionService {
             List<Question> ans=questionMapper.selectQuestionByQ_id(q_id);
             String que= JSON.toJSONString(ans);
             redisTemplate.opsForValue().set("question_id:"+String.valueOf(q_id), que,60, TimeUnit.SECONDS);
+            System.err.println("缓存中不存在");
         }else{
             String que= redisTemplate.opsForValue().get("question_id:"+String.valueOf(q_id));
             List<Question> ans=JSON.parseArray(que,Question.class);
-           // String que=redisTemplate.opsForValue().get(String.valueOf(q_id));
-            //System.err.println(que);
+            System.err.println("缓存中存在");
             return ans;
         }
         return questionMapper.selectQuestionByQ_id(q_id);
@@ -108,5 +108,64 @@ public class QuestionServiceImpl implements QuestionService {
     public int updateStartsAndEndsByQ_id(Long q_id, int route_start, List<Integer> route_ends) {
         String ends=JSON.toJSONString(route_ends);
         return questionMapper.updateStartsAndEndsByQ_id(q_id,route_start,ends);
+    }
+
+    @Override
+    public List<Question> selectQuestionsByQ_idOrQ_Name(String key) {
+        String reg="^\\d{19,19}$";
+        Pattern pattern=Pattern.compile(reg);
+        Matcher matcher = pattern.matcher(key);
+        if(matcher.find()){
+            List<Question> ans=null;
+            ans=questionMapper.selectQuestionByQ_id(Long.parseLong(key));
+            if(ans.isEmpty()){
+                ans=questionMapper.selectQuestionByQ_name(key);
+            }
+            return ans;
+        }else{
+            return questionMapper.selectQuestionByQ_name(key);
+        }
+    }
+
+    @Override
+    public List<Question> selectQuestionByQ_idWithCache(Long q_id,Long user_id) {
+        List<Question> questions=questionMapper.selectQuestionByQ_id(q_id);
+        if(!questions.isEmpty()) {
+            String stu=String.valueOf(user_id);
+            redisTemplate.opsForHash().putIfAbsent("que_cacahe", stu, JSON.toJSONString(questions));
+            String ans_que=(String)redisTemplate.opsForHash().get("que_cacahe", stu);
+            List<Question> list=JSON.parseArray(ans_que,Question.class);
+            for(int i=0;i<list.size();i++) {
+               
+                if (list.get(i).getQ_id().compareTo(q_id) == 0) {
+                    list.remove(i);
+                    break;
+                }
+            }
+
+            if(list.size()>5){
+                list.remove(0);
+            }
+            list.add(questions.get(0));
+
+            redisTemplate.opsForHash().put("que_cacahe", stu, JSON.toJSONString(list));
+        }
+        return questions;
+    }
+
+    @Override
+    public List<Question> getMyQuestionCache(Long user_id){
+        String stu=String.valueOf(user_id);
+        List<Question> ans=new LinkedList<>();
+        if(redisTemplate.opsForHash().hasKey("que_cacahe",stu)){
+            Object str=redisTemplate.opsForHash().get("que_cacahe",stu);
+            if(str!=null){
+                List<Question> list=JSON.parseArray((String)str,Question.class);
+                for(int i=list.size()-1;i>=0;i--){
+                    ans.add(list.get(i));
+                }
+            }
+        }
+        return ans;
     }
 }

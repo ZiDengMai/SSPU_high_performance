@@ -1,31 +1,12 @@
 spring:
   application:
-    name: Providers
+    name: countProviders
   datasource:
     #url: jdbc:mysql://106.14.121.164:3306/sspu_consultor?characterEncoding=UTF-8&AutoReconnect=true
     url: jdbc:mysql://localhost:3306/sspu_consultor?characterEncoding=UTF-8&AutoReconnect=true
     username: root
     password: 0096unicorn
     driver-class-name: com.mysql.jdbc.Driver
-
-  mail:
-    host:  smtp.163.com
-    username: kuxigundam@163.com
-    password: HSXZTUFYDAHKZTIK
-
-  redis:
-    #host: 106.14.121.164
-    host: 127.0.0.1
-    port: 6379
-    password: 0096unicorn
-    jedis:
-      pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 500
-        min-idle: 0
-    lettuce:
-      shutdown-timeout: 0
   rabbitmq:
     #host: 106.14.121.164
     host: 127.0.0.1
@@ -37,7 +18,8 @@ spring:
 mybatis:
   mapper-locations: classpath:/mapper/**/*.xml
 server:
-  port: 7000
+  port: 6060
+
 
 eureka:
   client:
@@ -48,5 +30,5 @@ eureka:
     fetch-registry: true
 
 init:
-  machineId: 0
-  dataCenterId: 0
+  machineId: 1
+  dataCenterId: 1

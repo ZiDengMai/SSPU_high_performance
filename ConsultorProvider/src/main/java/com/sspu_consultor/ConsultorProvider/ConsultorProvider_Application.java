@@ -21,8 +21,8 @@ import javax.annotation.Resource;
 @EnableCircuitBreaker
 public class ConsultorProvider_Application implements CommandLineRunner {
 
-    /*@Resource
-    private CanalClient canalClient;*/
+    @Resource
+    private CanalClient canalClient;
 
     public static void main(String[] args){
         SpringApplication.run(ConsultorProvider_Application.class,args);
@@ -39,8 +39,8 @@ public class ConsultorProvider_Application implements CommandLineRunner {
     }
 
 
-   @Override
+    @Override
     public void run(String... args) throws Exception {
-        //canalClient.run();
+        canalClient.run();
     }
 }

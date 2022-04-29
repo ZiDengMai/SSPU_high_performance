@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sspu_consultor.ConsultorProvider.com.sspu_consultor.brief_provider.dao.UserMapper">
+<mapper namespace="com.sspu_consultor.ConsultorProvider.dao.UserMapper">
 
      <insert id="insertIntoNeoUser">
          insert into user values(#{user_id},#{user_name},#{user_password})
@@ -13,4 +13,12 @@
      <select id="selectUserByName" resultType="entity.user.User">
          select * from user where user_name=#{user_name}
      </select>
+
+    <update id="updateUser_expiredAndUser_testByUser_name">
+        update user set user_test=#{user_test},user_expired=#{user_expired} where user_name=#{user_name}
+    </update>
+
+    <update id="updateUser_passwordByUser_name">
+        update user set user_password=#{user_password} where user_name=#{user_name}
+    </update>
 </mapper>

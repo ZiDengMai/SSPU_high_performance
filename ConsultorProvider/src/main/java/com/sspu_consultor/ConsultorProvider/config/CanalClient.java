@@ -25,7 +25,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 
-//@Component
+@Component
 public class CanalClient {
 
     private Logger logger = LoggerFactory.getLogger(CanalClient.class);
@@ -44,7 +44,7 @@ public class CanalClient {
     public void run() {
 
         //ip需要修改成Linux的ip，端口号固定为11111
-        CanalConnector connector = CanalConnectors.newSingleConnector(new InetSocketAddress("106.14.121.164",
+        CanalConnector connector = CanalConnectors.newSingleConnector(new InetSocketAddress("localhost",
                 11111), "example", "", "");
         int batchSize = 1000;
         try {
@@ -263,6 +263,7 @@ public class CanalClient {
                     List<Column> newColumnList = rowData.getAfterColumnsList();
                     Column service_id=newColumnList.get(0);
                     Column nums=newColumnList.get(1);
+                    System.err.println("数据库监听服务号为:"+service_id.getValue()+" 库存为:"+nums.getValue());
                     redisTemplate.opsForValue().set("watch_service_id:"+service_id.getValue(),nums.getValue(),1000, TimeUnit.MILLISECONDS);
                 }
 

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sspu_consultor.ConsultorProvider.com.sspu_consultor.brief_provider.dao.Service_historyMapper">
+<mapper namespace="com.sspu_consultor.ConsultorProvider.dao.Service_historyMapper">
     <insert id="insertService_historyNeoHistory">
         insert into service_history values(#{his_id},#{user_id},#{type},#{time});
     </insert>
+
+    <select id="selectService_historByUser_id" resultType="java.util.Date">
+        select time from service_history where user_id=#{user_id} order by time desc limit 0,1
+    </select>
 </mapper>

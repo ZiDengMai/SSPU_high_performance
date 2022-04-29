@@ -1,4 +1,4 @@
-package com.sspu_consultor.consultor_result.config;
+package com.sspu_consultor.consult_result_service.config;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;

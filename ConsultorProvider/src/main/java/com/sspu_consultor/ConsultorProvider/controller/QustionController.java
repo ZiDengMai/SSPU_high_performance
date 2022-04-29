@@ -29,7 +29,7 @@ public class QustionController {
     @HystrixCommand(fallbackMethod = "timeout",commandProperties = {
             @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",value="3000"),//毫秒级超时
             @HystrixProperty(name="circuitBreaker.enabled",value = "true"),//启用短路器
-            @HystrixProperty(name="circuitBreaker.requestVolumeThreshold",value = "10"),//阀值
+            @HystrixProperty(name="circuitBreaker.requestVolumeThreshold",value = "10"),//线程数经过这个数字后开始
             @HystrixProperty(name="circuitBreaker.sleepWindowInMilliseconds",value = "10000"),//窗口期，过后尝试恢复服务
             @HystrixProperty(name="circuitBreaker.errorThresholdPercentage",value = "60")//阀值内达到这个降级次数就熔断
             //更多命令请见hystrixCommandProperties
@@ -68,9 +68,6 @@ public class QustionController {
     @ResponseBody
     public CommonResult<List<Question>> selectQuestionByQ_id(Long q_id) throws UnsupportedEncodingException {
         List<Question> ans=questionService.selectQuestionByQ_id(q_id);
-        for(int i=0;i<ans.size();i++) {
-            System.err.println(ans.get(i));
-        }
         return new CommonResult<List<Question>>(200, ans);
     }
 
@@ -170,6 +167,25 @@ public class QustionController {
            }else{
                return new CommonResult<String>(400, "上传失败");
            }
+    }
+
+    @GetMapping("/selectQuestionsByQ_idOrQ_Name")
+    @ResponseBody
+    public CommonResult<String> selectQuestionsByQ_idOrQ_Name(String key){
+        List<Question> ans=questionService.selectQuestionsByQ_idOrQ_Name(key);
+        return new CommonResult<String>(200,JSON.toJSONString(ans));
+    }
+
+    @GetMapping("/selectQuestionByQ_idWithCache")
+    @ResponseBody
+    public CommonResult<List<Question>> selectQuestionByQ_idWithCache(Long q_id,Long user_id){
+
+       return new CommonResult<List<Question>>(200, questionService.selectQuestionByQ_idWithCache(q_id,user_id));
+    }
+
+    @GetMapping("/getMyQuestionCache")
+    public CommonResult<String> getMyQuestionCache(Long user_id){
+        return new CommonResult<String>(200, JSON.toJSONString(questionService.getMyQuestionCache(user_id)));
     }
 
     public CommonResult<Long> timeout(Long user_id){

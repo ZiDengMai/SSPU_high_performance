@@ -1,7 +1,7 @@
-package com.sspu_consultor.consultor_result.service;
+package com.sspu_consultor.consult_result_service.service;
 
 
-import com.sspu_consultor.consultor_result.mapper.AnswersMapper;
+import com.sspu_consultor.consult_result_service.mapper.AnswersMapper;
 import entity.answers.Answers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
