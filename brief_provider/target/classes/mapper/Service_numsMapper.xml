@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sspu_consultor.brief_provider.dao.Service_numsMapper">
+    <select id="selectService_numsByServcie_id" resultType="entity.service_nums.Service_nums">
+        select * from service_nums where service_id=#{service_id}
+    </select>
+
+    <select id="selectAllService_nums" resultType="entity.service_nums.Service_nums">
+        select * from service_nums;
+    </select>
+
+    <update id="updateService_numsByService_id">
+        update service_nums set nums=#{nums} where service_id=#{service_id}
+    </update>
+</mapper>

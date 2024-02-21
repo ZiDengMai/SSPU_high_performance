@@ -71,6 +71,9 @@ public class Basic_resultServiceImpl implements Basic_resultService {
 
        //表示 第几题，第几个选项的人数
        int arr[][]=new int[200][20];
+       if(que_single_questions==null){
+           return 0;
+       }
        int ques_num=que_single_questions.size();
 
        //外循环，所有答卷
@@ -90,23 +93,31 @@ public class Basic_resultServiceImpl implements Basic_resultService {
 
        //外循环表示问卷的问题数
         //统计每个选项的人数，并序列化
-       for(int i=0;i<ques_num;i++){
-           QuestionResult questionResult=new QuestionResult();
+       for(int i=0;i<ques_num;i++) {
+           QuestionResult questionResult = new QuestionResult();
            questionResult.setTitle(que_single_questions.get(i).getTitle());
            questionResult.setType(que_single_questions.get(i).getType());
            questionResult.setSelections(que_single_questions.get(i).getSelections());
            questionResult.setAnswers(new LinkedList<String>());
-           for(int j=0;j<que_single_questions.get(i).getSelections().size();j++){
+           for (int j = 0; j < que_single_questions.get(i).getSelections().size(); j++) {
                questionResult.getAnswers().add(String.valueOf(arr[i][j]));
            }
            res_for_basic_result.add(questionResult);
        }
-
+       for(int i=0;i<5;i++){
+           for(int j=0;j<4;j++){
+               System.out.print(arr[i][j]+" ");
+           }
+           System.out.println();
+       }
        for(int i=0;i<res_for_basic_result.size();i++){
            QuestionResult q=res_for_basic_result.get(i);
            System.out.println(q.getTitle()+" "+q.getType());
            for(int j=0;j<q.getSelections().size();j++){
                System.out.print(q.getSelections().get(j)+" ");
+           }
+           for(int j=0;j<q.getAnswers().size();j++){
+               System.out.print(q.getAnswers().get(j)+" ");
            }
            System.out.println();
        }
@@ -133,6 +144,9 @@ public class Basic_resultServiceImpl implements Basic_resultService {
 
         //表示 第几题，第几个选项的人数
         int arr[][]=new int[200][20];
+        if(que_single_questions==null){
+            return 0;
+        }
         int ques_num=que_single_questions.size();
 
         //外循环，所有答卷

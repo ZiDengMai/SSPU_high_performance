@@ -39,7 +39,7 @@
      </delete>
 
      <select id="selectAll" resultType="entity.question.Question">
-          select * from question limit #{start},#{end}
+          select * from question where q_situation=1
      </select>
 
      <update id="updateQ_situationByQ_id">
